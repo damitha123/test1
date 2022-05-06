@@ -117,43 +117,46 @@ export class Products1Component implements OnInit, AfterViewInit, OnDestroy {
 
     }
 
-    GetData(){
+      GetData(){
 
-      let Options = { Page:this.CurrentPage, NameType:this.NameType, NameValue:this.NameValue, DateType:this.DateType, DateValue:this.DateValue, StartDate:this.StartDate, EndDate:this.EndDate, AuthorType:this.AuthorType, AuthorValue:this.AuthorValue };
-        
-      if(this.GetAllProductsSubscription!=null){
-          this.GetAllProductsSubscription.unsubscribe();
-      }
-      this.GetAllProductsSubscription=this.serverRequests.GetProducts(Options).subscribe((response:string)=>{
+        let Options = { Page:this.CurrentPage, NameType:this.NameType, NameValue:this.NameValue, DateType:this.DateType, DateValue:this.DateValue, StartDate:this.StartDate, EndDate:this.EndDate, AuthorType:this.AuthorType, AuthorValue:this.AuthorValue };
+          
+        if(this.GetAllProductsSubscription!=null){
+            this.GetAllProductsSubscription.unsubscribe();
+        }
+        this.GetAllProductsSubscription=this.serverRequests.GetProducts(Options).subscribe((response:string)=>{
+              
+          if(response!=''){
+
+              let Response=$.parseJSON(response);
+              this.TotalRows=Response.TotalRows;
+              this.TotalPages=Math.ceil(this.TotalRows/10);
+              let Products=Response.Data;
+              let Products1=$.map(Products,(el:any)=>{
+                  let AuthorsArray:any[]=el.authors;
+                  /* let Authors:string='';
+                  $.each(AuthorsArray,(k:number,v:any)=>{
+                    if(Authors==''){
+                      Authors=v.name;
+                    }else{
+                      Authors+='<br/>'+v.name;
+                    }
+                  }); */
+                  return { id:el.id, type:'master', name:el.name, close:false, authors:el.authors, date:(new Date(el.date)).toISOString().split('T')[0] };
+              });
+              let Products2:any[]=[];
+              $.each(Products1,(k:number,v:any)=>{
+                Products2.push(v);
+                v.type='child';
+                v.expanded=false;
+                Products2.push(v);
+              });
+              this.products=Products2;        
             
-        if(response!=''){
-          let Response=$.parseJSON(response);
-                this.TotalRows=Response.TotalRows;
-                this.TotalPages=Math.ceil(this.TotalRows/10);
-                let Products=Response.Data;
-                let Products1=$.map(Products,(el:any)=>{
-                    let AuthorsArray:any[]=el.authors;
-                    /* let Authors:string='';
-                    $.each(AuthorsArray,(k:number,v:any)=>{
-                      if(Authors==''){
-                        Authors=v.name;
-                      }else{
-                        Authors+='<br/>'+v.name;
-                      }
-                    }); */
-                    return { id:el.id, type:'master', name:el.name, close:false, authors:el.authors, date:(new Date(el.date)).toISOString().split('T')[0] };
-                });
-                let Products2:any[]=[];
-                $.each(Products1,(k:number,v:any)=>{
-                  Products2.push(v);
-                  v.type='child';
-                  v.expanded=false;
-                  Products2.push(v);
-                });
-                this.products=Products2;        }
-        
-        
-    });
+          }
+          
+          
+      });
 
     }
 
