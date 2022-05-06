@@ -1,0 +1,146 @@
+<div>
+  <div style="padding: 5px;background-color: chocolate;">
+      <div style="text-align: center;"><label class="Filtering">{{ 'Filtering'|translate }}</label></div>
+      <div>
+          <fieldset>
+            <legend class="Filtering">{{ 'Name'|translate }}</legend>
+            <select [(ngModel)]="NameType">
+                <option value="NotFiltered" selected="selected">{{ 'NotFiltered'|translate }}</option>
+                <option value="StartsWith">{{ 'StartsWith'|translate }}</option>
+                <option value="EndsWith">{{ 'EndsWith'|translate }}</option>
+                <option value="Contains">{{ 'Contains'|translate }}</option>
+                <option value="IsEqualTo">{{ 'IsEqualTo'|translate }}</option>
+            </select>
+            <input type="text" [(ngModel)]="NameValue" class="LettersOnly"/>
+          </fieldset>
+      </div>
+      <div>
+        <fieldset>
+          <legend class="Filtering">{{ 'Date'|translate }}</legend>
+          <select [(ngModel)]="DateType">
+              <option value="NotFiltered" selected="selected">{{ 'NotFiltered'|translate }}</option>
+              <option value="Before">{{ 'Before'|translate }}</option>
+              <option value="After">{{ 'After'|translate }}</option>
+              <option value="Between">{{ 'Between'|translate }}</option>
+              <option value="IsEqualTo">{{ 'IsEqualTo'|translate }}</option>
+          </select>
+          <table>
+            <tr>
+              <td>
+                <div>
+                  <mat-form-field appearance="fill" [style.display]="((DateType!='Between')?'unset':'none')">
+                    <mat-label>{{ 'Choose-A-Date'|translate }}</mat-label>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="DateValue" class="IsoDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                    </mat-datepicker-toggle>
+                    <mat-hint>YYYY-MM-DD</mat-hint>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  
+                  <mat-form-field appearance="legacy" [style.display]="((DateType=='Between')?'unset':'none')">
+                    <mat-label>{{ 'StartDate'|translate }}</mat-label>
+                    <input matInput [matDatepicker]="picker1" [(ngModel)]="StartDate" class="IsoDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1">
+                    </mat-datepicker-toggle>
+                    <mat-hint>YYYY-MM-DD</mat-hint>
+                    <mat-datepicker #picker1 [startAt]="StartDate"></mat-datepicker>
+                  </mat-form-field>
+                  <mat-form-field appearance="legacy" [style.display]="((DateType=='Between')?'unset':'none')">
+                    <mat-label>{{ 'EndDate'|translate }}</mat-label>
+                    <input matInput [matDatepicker]="picker2" [(ngModel)]="EndDate" class="IsoDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2">
+                    </mat-datepicker-toggle>
+                    <mat-hint>YYYY-MM-DD</mat-hint>
+                    <mat-datepicker #picker2 [startAt]="EndDate"></mat-datepicker>
+                  </mat-form-field>
+                  
+                  
+                  
+                  
+                </div>
+              </td>
+            </tr>
+          </table>
+          
+          
+          
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+          <legend class="Filtering">{{ 'Authors'|translate }}</legend>
+          <select [(ngModel)]="AuthorType">
+            <option value="NotFiltered" selected="selected">{{ 'NotFiltered'|translate }}</option>
+            <option value="StartsWith">{{ 'StartsWith'|translate }}</option>
+            <option value="EndsWith">{{ 'EndsWith'|translate }}</option>
+            <option value="Contains">{{ 'Contains'|translate }}</option>
+            <option value="IsEqualTo">{{ 'IsEqualTo'|translate }}</option>
+          </select>
+          <input type="text" [(ngModel)]="AuthorValue" class="LettersOnly"/>
+        </fieldset>
+    </div>
+    <div style="text-align: right;">
+        <button mat-button (click)="ApplyClicked($event);">{{ 'Apply'|translate }}</button>
+    </div>
+  </div>
+  <div>
+        <mat-paginator (page)="PageChanged($event);" *ngIf="TotalPages>0"
+              [length]="TotalRows"
+              [pageSize]="10"
+              [pageSizeOptions]="[10]"
+              aria-label="Select page">
+        </mat-paginator>
+        <table mat-table [dataSource]="products" class="example-container mat-elevation-z8">
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name" >
+            <th mat-header-cell *matHeaderCellDef >{{ 'Name'|translate }}</th>
+            <td mat-cell *matCellDef="let element" [style.display]="((element.type=='master')?'unset':'none')"> {{element.name}} </td>
+            <td mat-cell *matCellDef="let element" [style.display]="((element.type=='child'&&element.expanded)?'unset':'none')" colspan="3"> {{element.name}} </td>
+          </ng-container>
+        
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef >{{ 'Date'|translate }}</th>
+            <td mat-cell *matCellDef="let element" [style.display]="((element.type=='master')?'unset':'none')"> {{element.date}} </td>
+          </ng-container>
+
+          <!-- Authors Column -->
+          <!-- ExpandCollapse Icon Column -->
+          <ng-container matColumnDef="expandCollapse">
+            <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <mat-cell *matCellDef="let element"> 
+              <button mat-icon-button color="primary" [style.display]="((element.type=='master')?'unset':'none')">
+                  <mat-icon id="expand_more" #expand_more *ngIf="!element.close">expand_more</mat-icon>
+                  <mat-icon id="expand_less" #expand_less *ngIf="element.close">expand_less</mat-icon>
+                </button> 
+            </mat-cell>
+          </ng-container>
+
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            
+          </tr>
+      
+      </table>
+      <mat-paginator (page)="PageChanged($event);" *ngIf="TotalPages>0"
+                    [length]="TotalRows"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[10]"
+                    aria-label="Select page">
+      </mat-paginator>
+
+      <ng-template #tpl let-element>
+        <div class="mat-row" [@detailExpand] >
+            {{ 'A' }}
+        </div>
+      </ng-template>
+  </div>
+  <div>
+
+  </div>
+</div>
+
+  
+

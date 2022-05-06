@@ -1,0 +1,141 @@
+.row.WithoutLeftAndRightMargins{
+    margin-left: 0;
+    margin-right: 0;
+}
+#FixedToolbars{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    max-height: 50px;
+    border-bottom: 1px solid aqua;
+    z-index: 2;
+}
+#Footer{
+    position: fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    max-height: 50px;
+}
+#ScrollableArea{
+    position: relative;
+    margin-top:51px;
+    margin-bottom: 51px;
+    margin-left: 0;
+    margin-right: 0;
+}
+.toolbar{
+    background-color: black;
+    border-bottom: 1px solid aqua;
+    height: 50px;
+    padding-left: 0;
+    padding-right: 0;
+    z-index:1;
+}
+.footbar{
+    background-color: black;
+    border-top: 1px solid aqua;
+    height: 50px;
+    z-index:1;
+}
+
+@media screen and (max-width: 274px) {
+    .LargeScreens{
+        display: none;
+    }
+    .MediumScreens{
+        display: none;
+    }
+    .SmallScreens{
+        display: none;
+    }
+    .TinyScreens{
+        display: unset;
+    }
+}
+
+@media screen and (min-width: 275px)  and (max-width: 575px){
+    .LargeScreens{
+        display: none;
+    }
+    .MediumScreens{
+        display: none;
+    }
+    .SmallScreens{
+        display: unset;
+    }
+    .TinyScreens{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 576px)  and (max-width: 995px){
+    .LargeScreens{
+        display: none;
+    }
+    .MediumScreens{
+        display: unset;
+    }
+    .SmallScreens{
+        display: none;
+    }
+    .TinyScreens{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 996px) {
+    .LargeScreens{
+        display: unset;
+    }
+    .MediumScreens{
+        display: none;
+    }
+    .SmallScreens{
+        display: none;
+    }
+    .TinyScreens{
+        display: none;
+    }
+}
+
+#LeftMainMenu{
+    display: inline-block;
+    position: fixed;
+    left:0;
+    max-width:274px;
+    top:51px;
+    bottom: 51px;
+    background-color: black;
+    border-right: 1px solid aqua;
+    overflow-y: scroll;
+    z-index: 2;
+}
+
+#LeftMainMenu #InnerLeftMainMenu{
+    display: none;
+    
+}
+
+
+#ScrollableArea{
+    border-right: 1px solid aqua;
+}
+
+.MenuItem{
+    padding: 5px;
+    color: aqua;
+    cursor: pointer;
+}
+
+.MenuItem label{
+    
+    cursor: pointer;
+}
+
+.MenuItem:hover{
+    background-color: aqua;
+    color: black;
+    border:1px solid aqua;
+}

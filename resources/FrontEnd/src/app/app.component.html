@@ -1,0 +1,101 @@
+<div id="AppRootInnerTag">
+  <div id="FixedToolbars">
+    <div>
+      <div class="LargeScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar" style="text-align:right;">
+            <left-main-menu style="float:left;" [UniqueID]="LargeScreenUniqueID"></left-main-menu>
+            <language-selector style="display:inline-block;"></language-selector>
+            <logout-button style="display:inline-block;"></logout-button>
+            
+          </div>
+        </div>
+      </div>
+      <div class="MediumScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar"  style="text-align:right;">
+              <left-main-menu style="float:left;" [UniqueID]="MediumScreenUniqueID"></left-main-menu>
+              <language-selector style="display:inline-block;"></language-selector>
+              <logout-button style="display:inline-block;"></logout-button>
+              
+          </div>
+        </div>
+      </div>
+      <div class="SmallScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar" style="text-align:right;">
+            <left-main-menu style="float:left;" [UniqueID]="SmallScreenUniqueID" ></left-main-menu>
+            <logout-button style="display:inline-block;"></logout-button>
+          </div>
+        </div>
+      </div>
+      <div class="TinyScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar" style="text-align:right;">
+            <left-main-menu style="float:left;" [UniqueID]="TinyScreenUniqueID"></left-main-menu>
+            <logout-button style="display:inline-block;"></logout-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="ScrollableArea">
+    <div id="Toolbars">
+      <div class="MediumScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar">
+
+          </div>
+        </div>
+      </div>
+      <div class="SmallScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar">
+            <language-selector style="display:inline-block;"></language-selector>
+          </div>
+        </div>
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar">
+
+          </div>
+        </div>
+      </div>
+      <div class="TinyScreens">
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar">
+            <language-selector style="display:inline-block;"></language-selector>
+          </div>
+        </div>
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar">
+
+          </div>
+        </div>
+        <div class="row WithoutLeftAndRightMargins">
+          <div class="col-lg-12 toolbar">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="PageContent">
+      <router-outlet></router-outlet>
+    </div>
+    <div id="LeftMainMenu" >
+        <div id="InnerLeftMainMenu">
+            <!-- <div class="MenuItem" (click)="DirectToAuthorsPage($event);"><label>{{ 'Authors'|translate }}</label></div> -->
+            <div class="MenuItem" (click)="DirectToProductsPage($event);"><label>{{ 'Products'|translate }}</label></div>
+            <div class="MenuItem" (click)="DirectToDashboardPage($event);"><label>{{ 'Dashboard'|translate }}</label></div>
+            <!-- <div class="MenuItem" (click)="DirectToUsersPage($event);"><label>{{ 'Users'|translate }}</label></div> -->
+            <!-- <div class="MenuItem">{{ 'FilterGrid'|translate }}</div> -->
+        </div>
+    </div>
+  </div>
+  <div id="Footer">
+    <div class="row WithoutLeftAndRightMargins">
+      <div class="col-lg-12 footbar">
+
+      </div>
+    </div>
+  </div>
+</div>
